@@ -3,3 +3,6 @@ Ref: https://www.fundaofwebit.com/post/how-to-create-layout-using-laravel-blade-
 
 # Employee Management
 Ref: https://www.youtube.com/watch?v=cs6rlDze5zc
+
+# Bootstrap Css and Components
+Ref: https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works
