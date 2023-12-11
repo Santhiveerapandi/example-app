@@ -18,7 +18,8 @@ class PaymentController extends Controller
         $this->gateway->setTestMode(true);
     }
 
-    public function index() {
+    public function index()
+    {
         return view('paypal.index');
     }
     public function pay(Request $request)
@@ -31,10 +32,9 @@ class PaymentController extends Controller
                 'cancelUrl' => url('error')
             ))->send();
 
-            if($response->isRedirect()) {
+            if ($response->isRedirect()) {
                 $response->redirect();
-            }
-            else {
+            } else {
                 return $response->getMessage();
             }
         } catch (\Throwable $th) {
@@ -42,10 +42,11 @@ class PaymentController extends Controller
         }
     }
 
-    public function success(Request $request) {
-        if($request->input('paymentId') && $request->input('PayerID')) {
+    public function success(Request $request)
+    {
+        if ($request->input('paymentId') && $request->input('PayerID')) {
             $transaction = $this->gateway->completePurchase(array(
-                'payer_id'=>$request->input('PayerID'),
+                'payer_id' => $request->input('PayerID'),
                 'transactionReference' => $request->input('paymentId')
             ));
             $response = $transaction->send();
@@ -63,8 +64,7 @@ class PaymentController extends Controller
                 $payment->save();
 
                 return "Payment is successfull. Your Transaction Id is: ".$arr['id'];
-            }
-            else {
+            } else {
                 return $response->getMessage();
             }
         } else {
@@ -72,7 +72,8 @@ class PaymentController extends Controller
         }
     }
 
-    public function error(){
+    public function error()
+    {
         return 'User declined the payment';
     }
 }

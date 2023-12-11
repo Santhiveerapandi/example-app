@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function aboutus(){
+    public function aboutus()
+    {
         if (false) {
             return redirect()->route('veera');
         }

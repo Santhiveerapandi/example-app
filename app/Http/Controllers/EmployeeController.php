@@ -12,7 +12,13 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::orderBy('name', 'asc')->paginate(2,['phone','email','name','joining_date','is_active','id']);
+        $employees = Employee::orderBy('name', 'asc')->paginate(2, [
+            'phone',
+            'email',
+            'name',
+            'joining_date',
+            'is_active',
+            'id']);
         return view('employee.index', compact('employees'));
     }
 
@@ -37,11 +43,11 @@ class EmployeeController extends Controller
             'joining_date' => 'required',
             'salary' => 'required|numeric',
             'is_active' => 'required'
-        ],[
+        ], [
             'phone.unique' => 'Phone number already exist'
         ]);
         //Collect data
-        $data= $request->except('_token');
+        $data = $request->except('_token');
         //Mass Data Assignment to DB
         Employee::create($data);
         // insert Single row
@@ -72,7 +78,7 @@ class EmployeeController extends Controller
     {
         // $employee=Employee::find($id);
         // dd($employee);
-        return view('employee.edit',compact('employee'));
+        return view('employee.edit', compact('employee'));
     }
 
     /**
@@ -88,7 +94,7 @@ class EmployeeController extends Controller
             'joining_date' => 'required',
             'salary' => 'required|numeric',
             'is_active' => 'required'
-        ],[
+        ], [
             'phone.unique' => 'Phone number already exist'
         ]);
         // dd($employee);

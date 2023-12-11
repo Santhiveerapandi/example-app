@@ -9,7 +9,7 @@ class Employee extends Model
 {
     use HasFactory;
     //mass assignment
-    protected $fillable =[
+    protected $fillable = [
         'name',
         'email',
         'phone',
