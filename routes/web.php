@@ -5,7 +5,16 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\Models\Activity;
 
+//Query log inside storage\logs\laravel.log
+/* use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+DB::listen(function($sql) {
+    Log::info($sql->sql);
+    Log::info($sql->bindings);
+    Log::info($sql->time);
+}); */
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return Activity::all();
     return view('frontend.index');
 });
 Route::get('/aboutus', [HomeController::class, 'aboutus']);

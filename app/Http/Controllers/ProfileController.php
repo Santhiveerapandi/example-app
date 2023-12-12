@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
+
 
 class ProfileController extends Controller
 {
@@ -16,6 +18,8 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        Log::info('Showing the user profile for user: {id}', ['id' => $request->user()->id]);
+
         return view('profile.edit', [
             'user' => $request->user(),
         ]);

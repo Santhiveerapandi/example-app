@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Employee extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     //mass assignment
     protected $fillable = [
         'name',
@@ -19,4 +21,10 @@ class Employee extends Model
     ];
     // all the fields require to fill
     // protected $guarded=[];
+    
+    protected static $logAttributes = ['*'];
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 }

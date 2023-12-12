@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -12,6 +13,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        // DB::enableQueryLog();
         $employees = Employee::orderBy('name', 'asc')->paginate(2, [
             'phone',
             'email',
@@ -19,6 +21,8 @@ class EmployeeController extends Controller
             'joining_date',
             'is_active',
             'id']);
+        // dd(DB::getQueryLog());
+
         return view('employee.index', compact('employees'));
     }
 

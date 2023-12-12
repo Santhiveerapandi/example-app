@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +27,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
     ];
-
+    protected static $logAttributes = ['*'];
+    public function getActivitylogOptions(): LogOptions
+    {
+        $log=new LogOptions();
+        return $log->logAll();//LogOptions::defaults();
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
