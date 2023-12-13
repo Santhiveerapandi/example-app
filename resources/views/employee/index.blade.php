@@ -23,17 +23,19 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Joining Date</th>
+                            <th>File</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($employees as $key => $employee)
+                        @forelse ($employees as $key => $employee)
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>{{$employee->name}}</td>
                             <td>{{$employee->email}}</td>
                             <td>{{$employee->joining_date}}</td>
+                            <td><a target="_blank" href="{{asset(str_ireplace('public', 'storage',$employee->file));}}">{{basename($employee->file)}}</a></td> 
                             <td><span type="button" class="btn {{($employee->is_active == 1)?'btn-success':'btn-danger'}} btn-xs py-0">{{($employee->is_active == 1)?'Active':'Inactive'}}</span></td>
                             <td>
                                 <div class="d-flex">
@@ -48,7 +50,9 @@
                                 
                             </td>
                         </tr>
-                        @endforeach
+                        @empty 
+                            <tr class="text-center"><th colspan="7">No Records Found</th></tr>
+                        @endforelse
                     </tbody>
                 </table>
                 {{$employees->links()}}

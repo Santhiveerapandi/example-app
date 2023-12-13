@@ -27,8 +27,11 @@ DB::listen(function($sql) {
 */
 
 Route::get('/', function () {
-    return Activity::all();
+    // return Activity::all();
     return view('frontend.index');
+});
+Route::get('/activity', function() {
+    return Activity::all();
 });
 Route::get('/aboutus', [HomeController::class, 'aboutus']);
 Route::get('/dashboard', function () {

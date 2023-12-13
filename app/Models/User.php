@@ -27,11 +27,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
     ];
-    protected static $logAttributes = ['*'];
+    // protected static $logAttributes = ['*'];
     public function getActivitylogOptions(): LogOptions
     {
-        $log=new LogOptions();
-        return $log->logAll();//LogOptions::defaults();
+        return LogOptions::defaults()->logAll();
     }
     /**
      * The attributes that should be hidden for serialization.

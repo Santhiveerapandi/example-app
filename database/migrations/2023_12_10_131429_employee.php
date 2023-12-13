@@ -18,6 +18,7 @@ return new class() extends Migration {
             $table->date('joining_date');
             $table->float('salary');
             $table->tinyInteger('is_active')->default(1);
+            $table->string('file');
             $table->timestamps();
         });
     }

@@ -1,10 +1,3 @@
-<!-- @if($errors->any())
-    @foreach($errors->all() as $error)
-    <div class="alert alert-danger">
-        {{$error}}
-    </div>
-    @endforeach
-@endif -->
 <x-app-layout>
     <x-slot name="header">
         Employee Management
@@ -14,8 +7,15 @@
     <a class="text-dark" href="{{route('employee.index')}}">Back to list</a>
     <div class="card">
     <div class="card-body">
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+        <div class="alert alert-danger">
+            {{$error}}
+        </div>
+        @endforeach
+    @endif
         <p style="font-size:20px; font-weight:bold;">Create New Employee</p>
-        <form action="{{route('employee.store')}}" class="was-validated" method="POST" novalidate>
+        <form action="{{route('employee.store')}}" enctype="multipart/form-data" class="was-validated" method="POST" novalidate>
             @csrf
             <div class="form-group has-validation">
                 <label for="name">Name</label>
@@ -68,6 +68,15 @@
                 @if($errors->has('is_active'))
                 <span class="invalid-feedback">
                     <strong>{{$errors->first('is_active')}}</strong>
+                </span>
+                @endif
+            </div>
+            <div class="form-group has-validation">
+                <label for="file">File Upload</label><br>
+                <input type="file" name="file" placeholder="Choose file" id="file" class="form-control {{($errors->has('file'))? 'is-invalid':''}}">
+                @if($errors->has('file'))
+                <span class="invalid-feedback">
+                    <strong>{{$errors->first('file')}}</strong>
                 </span>
                 @endif
             </div>

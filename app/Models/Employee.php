@@ -17,14 +17,15 @@ class Employee extends Model
         'phone',
         'joining_date',
         'salary',
-        'is_active'
+        'is_active',
+        'file'
     ];
     // all the fields require to fill
     // protected $guarded=[];
     
-    protected static $logAttributes = ['*'];
+    // protected static $logAttributes = ['*'];
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults();
+        return LogOptions::defaults()->logAll();
     }
 }

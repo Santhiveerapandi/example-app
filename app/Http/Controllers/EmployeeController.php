@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -20,6 +21,7 @@ class EmployeeController extends Controller
             'name',
             'joining_date',
             'is_active',
+            'file',
             'id']);
         // dd(DB::getQueryLog());
 
@@ -46,12 +48,19 @@ class EmployeeController extends Controller
             'phone' => 'required|numeric|unique:employees,phone',
             'joining_date' => 'required',
             'salary' => 'required|numeric',
-            'is_active' => 'required'
+            'is_active' => 'required',
+            'file' => 'required|max:2048',
         ], [
             'phone.unique' => 'Phone number already exist'
         ]);
         //Collect data
         $data = $request->except('_token');
+
+        $name = $request->file('file')->getClientOriginalName();
+
+        $path = $request->file('file')->store('public/files');
+        $data['file'] = $path;
+        // dd($data);
         //Mass Data Assignment to DB
         Employee::create($data);
         // insert Single row
@@ -116,6 +125,7 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         // dd($employee);
+        Storage::delete(basename($employee->file)); // Delete uploaded file
         $employee->delete();
         return redirect()->route('employee.index')->withSuccess("Employee deleted successfully!");
     }

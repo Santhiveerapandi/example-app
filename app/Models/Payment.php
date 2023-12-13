@@ -10,11 +10,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Payment extends Model
 {
     use HasFactory,LogsActivity;
-    // protected static $logAttributes = ['*'];
     public function getActivitylogOptions(): LogOptions
     {
-        // return LogOptions::defaults();
-        $log=new LogOptions();
-        return $log->logAll();
+        return LogOptions::defaults()->logOnly(['payment_id','payer_email','amount','currency']);
     }
 }
