@@ -28,4 +28,9 @@ class Employee extends Model
     {
         return LogOptions::defaults()->logAll();
     }
+
+    //Reverse has many
+    public function department() {
+        return $this->belongsTo(Department::class);
+    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\Models\Activity;
 
@@ -34,6 +35,8 @@ Route::get('/activity', function() {
     return Activity::all();
 });
 Route::get('/aboutus', [HomeController::class, 'aboutus']);
+Route::get('/index', [HomeController::class, 'index']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -51,6 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
     Route::get('success', [PaymentController::class, 'success']);
     Route::get('error', [PaymentController::class, 'error']);
+
+    //Eloquent Model
+    Route::get('/student', [StudentController::class, 'index']);
 });
 
 require __DIR__.'/auth.php';
