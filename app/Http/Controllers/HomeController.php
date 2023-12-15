@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Company;
 // use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Product;
 use App\Models\Student;
 use App\Models\StudentProfile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -69,6 +72,12 @@ class HomeController extends Controller
         foreach($item->author as $author) {
             echo $author->name."<br/>";
         }
+
+        //Polymorphic Relations
+        $companies = Company::with('photos')->get();
+        $products = Product::with('photos')->get();
+        $users = User::with('photos')->get();
+        dd($companies, $products, $users);
     }
     public function aboutus()
     {
